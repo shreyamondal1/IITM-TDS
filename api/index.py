@@ -3,38 +3,29 @@ import os
 import numpy as np
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
-from fastapi.responses import Response
 
 app = FastAPI()
 
-# Enable CORS for all origins, methods, and headers
+# -----------------------------
+# Enable CORS for all origins
+# -----------------------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],      # any origin
-    allow_methods=["*"],      # POST, OPTIONS, etc.
-    allow_headers=["*"],      # allow all headers
-    allow_credentials=True
+    allow_origins=["*"],   # allow any origin
+    allow_methods=["*"],   # allow all methods (POST, OPTIONS, etc.)
+    allow_headers=["*"],   # allow all headers
 )
 
+# -----------------------------
 # Load telemetry data once
+# -----------------------------
 file_path = os.path.join(os.path.dirname(__file__), "q-vercel-latency.json")
 with open(file_path, "r") as f:
     telemetry = json.load(f)
 
-# Preflight handler for OPTIONS requests
-@app.options("/{full_path:path}")
-async def preflight(full_path: str):
-    return Response(
-        status_code=204,  # No Content
-        headers={
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "POST, OPTIONS",
-            "Access-Control-Allow-Headers": "*",
-        }
-    )
-
+# -----------------------------
 # POST endpoint for assignment
+# -----------------------------
 @app.post("/")
 async def analyze_latency(request: Request):
     body = await request.json()
@@ -43,6 +34,7 @@ async def analyze_latency(request: Request):
 
     response = {}
     for region in regions:
+        # Filter telemetry by region
         data = [rec for rec in telemetry if rec["region"] == region]
         if not data:
             continue
@@ -59,7 +51,9 @@ async def analyze_latency(request: Request):
 
     return response
 
-# Optional: GET route for browser sanity check
+# -----------------------------
+# Optional: GET route for sanity check
+# -----------------------------
 @app.get("/")
 def root():
     return {"message": "POST JSON {regions: [...], threshold_ms: N} to this endpoint"}
