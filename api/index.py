@@ -4,6 +4,7 @@ import numpy as np
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.responses import Response
 
 app = FastAPI()
 
@@ -24,7 +25,14 @@ with open(file_path, "r") as f:
 # Preflight handler for OPTIONS requests
 @app.options("/{full_path:path}")
 async def preflight(full_path: str):
-    return JSONResponse(content={})
+    return Response(
+        status_code=204,  # No Content
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Access-Control-Allow-Headers": "*",
+        }
+    )
 
 # POST endpoint for assignment
 @app.post("/")
