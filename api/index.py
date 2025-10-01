@@ -14,7 +14,7 @@ app.add_middleware(
 
 # Resolve path relative to this file
 current_dir = os.path.dirname(__file__)
-telemetry_path = os.path.join(current_dir, "telemetry.json")
+telemetry_path = os.path.join(current_dir, "q-vercel-latency.json")
 with open(telemetry_path, "r") as f:
     telemetry = json.load(f)
 
