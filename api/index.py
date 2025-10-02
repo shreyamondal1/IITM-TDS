@@ -68,9 +68,9 @@ async def analyze_latency(request: Request):
 
     # Explicit CORS header for grader
     return JSONResponse(
-        content=response,
-        headers={"Access-Control-Allow-Origin": "*"}
-    )
+    content={"regions": response},
+    headers={"Access-Control-Allow-Origin": "*"}
+)
 
 # Sanity check GET
 @app.get("/")
