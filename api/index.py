@@ -10,9 +10,11 @@ app = FastAPI()
 # Enable CORS globally
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=["*"],       # any origin
+    allow_methods=["*"],       # POST, OPTIONS, etc.
+    allow_headers=["*"],       # allow all headers
+    expose_headers=["*"],      # explicitly expose all headers
+    allow_credentials=True
 )
 
 # Load telemetry data once
