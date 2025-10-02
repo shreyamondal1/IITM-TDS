@@ -3,29 +3,36 @@ import os
 import numpy as np
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse, Response
 
 app = FastAPI()
 
-# -----------------------------
-# Enable CORS for all origins
-# -----------------------------
+# Enable CORS globally
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],   # allow any origin
-    allow_methods=["*"],   # allow all methods (POST, OPTIONS, etc.)
-    allow_headers=["*"],   # allow all headers
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
-# -----------------------------
 # Load telemetry data once
-# -----------------------------
 file_path = os.path.join(os.path.dirname(__file__), "q-vercel-latency.json")
 with open(file_path, "r") as f:
     telemetry = json.load(f)
 
-# -----------------------------
-# POST endpoint for assignment
-# -----------------------------
+# Handle preflight requests explicitly
+@app.options("/{full_path:path}")
+async def preflight(full_path: str):
+    return Response(
+        status_code=204,
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Access-Control-Allow-Headers": "*",
+        }
+    )
+
+# Assignment POST endpoint
 @app.post("/")
 async def analyze_latency(request: Request):
     body = await request.json()
@@ -34,7 +41,6 @@ async def analyze_latency(request: Request):
 
     response = {}
     for region in regions:
-        # Filter telemetry by region
         data = [rec for rec in telemetry if rec["region"] == region]
         if not data:
             continue
@@ -46,14 +52,16 @@ async def analyze_latency(request: Request):
             "avg_latency": float(np.mean(latencies)),
             "p95_latency": float(np.percentile(latencies, 95)),
             "avg_uptime": float(np.mean(uptimes)),
-            "breaches": sum(1 for l in latencies if l > threshold)
+            "breaches": sum(1 for l in latencies if l > threshold),
         }
 
-    return response
+    # Explicit CORS header for grader
+    return JSONResponse(
+        content=response,
+        headers={"Access-Control-Allow-Origin": "*"}
+    )
 
-# -----------------------------
-# Optional: GET route for sanity check
-# -----------------------------
+# Sanity check GET
 @app.get("/")
 def root():
     return {"message": "POST JSON {regions: [...], threshold_ms: N} to this endpoint"}
