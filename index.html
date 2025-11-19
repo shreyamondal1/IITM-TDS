@@ -1,1 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Quarterly Earnings – Interactive Report</title>
 
+  <!-- Reveal.js core CSS from CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/black.css" id="theme">
+
+  <!-- Code syntax highlighting theme -->
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/plugin/highlight/monokai.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- Slide 1: Title (includes your email) -->
+    <section>
+      <h2>Quarterly Earnings Report</h2>
+      <p>Technical Consultant – Financial Analytics</p>
+      <p>Email: <strong>23f1001792@ds.study.iitm.ac.in</strong></p>
+
+      <aside class="notes">
+        Introduce yourself, the institution, and the purpose of this presentation.
+        Mention that this is an interactive Reveal.js deck demonstrating modern
+        presentation capabilities for quarterly earnings.
+      </aside>
+    </section>
+
+    <!-- Slide 2: Fragments (animated bullet points) -->
+    <section>
+      <h3>Key Highlights (Q-on-Q)</h3>
+      <ul>
+        <li class="fragment">Revenue grew by 7.5% QoQ</li>
+        <li class="fragment">Net profit margin expanded by 1.2 percentage points</li>
+        <li class="fragment">Cost-to-income ratio improved due to automation</li>
+        <li class="fragment">Strong performance in retail &amp; digital banking segments</li>
+      </ul>
+
+      <aside class="notes">
+        Use this slide to walk through the main outcomes step by step. 
+        Each point appears as you click, thanks to fragments.
+      </aside>
+    </section>
+
+    <!-- Slide 3: Markdown slide -->
+    <section data-markdown>
+      <textarea data-template>
+### Segment Performance (Markdown Slide)
+
+- **Retail Banking**: Strong loan growth, lower NPAs  
+- **Corporate Banking**: Stable, with selective lending  
+- **Treasury Operations**: Higher trading gains this quarter  
+
+> This slide is written in **Markdown** and rendered by the RevealJS Markdown plugin.
+      </textarea>
+
+      <aside class="notes">
+        Explain that this slide is authored in Markdown, which is helpful
+        for quickly writing bullet-heavy or text-heavy slides.
+      </aside>
+    </section>
+
+    <!-- Slide 4: Code sample with syntax highlighting -->
+    <section>
+      <h3>Example: Simple Earnings Growth Calculation (Python)</h3>
+
+      <pre><code class="language-python">
+def earnings_growth(prev_eps, current_eps):
+    """
+    Calculate earnings growth percentage.
+    """
+    return (current_eps - prev_eps) / prev_eps * 100
+
+prev_eps = 12.5  # last quarter EPS
+current_eps = 13.8  # current quarter EPS
+
+growth = earnings_growth(prev_eps, current_eps)
+print(f"Quarterly EPS growth: {growth:.2f}%")
+      </code></pre>
+
+      <aside class="notes">
+        Mention that the technical team often uses Python to compute KPIs, 
+        backtest strategies, and generate analytics used in this presentation.
+      </aside>
+    </section>
+
+    <!-- Slide 5: Financial math formula (LaTeX) -->
+    <section>
+      <h3>Financial Formula – Present Value of Cash Flows</h3>
+
+      <p>We discount projected cash flows using the standard present value formula:</p>
+
+      <p>
+        \[
+        PV = \sum_{t=1}^{T} \frac{CF_t}{(1 + r)^t}
+        \]
+      </p>
+
+      <p>Where:</p>
+      <ul>
+        <li>\( CF_t \) = cash flow at time \( t \)</li>
+        <li>\( r \) = discount rate</li>
+        <li>\( T \) = total number of periods</li>
+      </ul>
+
+      <aside class="notes">
+        Use this slide to show stakeholders that the analytics is grounded
+        in standard financial mathematics. Explain each term in plain language.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<!-- Reveal.js and plugins from CDN -->
+<script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+<script src="https://unpkg.com/reveal.js/plugin/markdown/markdown.js"></script>
+<script src="https://unpkg.com/reveal.js/plugin/highlight/highlight.js"></script>
+<script src="https://unpkg.com/reveal.js/plugin/notes/notes.js"></script>
+<script src="https://unpkg.com/reveal.js/plugin/math/math.js"></script>
+
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: true,
+    plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ],
+    math: {
+      // KaTeX is the default renderer in recent Reveal.js math plugin configs
+      mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+      tex2jax: {
+        inlineMath: [['\\(','\\)']],
+        displayMath: [['\\[','\\]']],
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
