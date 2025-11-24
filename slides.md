@@ -27,37 +27,29 @@ This presentation uses:
 
 ---
 
-<!-- _backgroundImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200" -->
 <!-- _class: bg-demo -->
 
-# Slide with Background Image
+![bg](https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200)
 
-Text stays readable because Marp applies overlay & text-shadow styling as required.
+# Slide with Background Image
 
 ---
 
 # Algorithmic Complexity Example
 
-Using KaTeX:
-
 \[
 T(n) = n \log n + 3n + O(1)
 \]
-
-This is the typical complexity of efficient comparison-based sorts (e.g. mergesort).
 
 ---
 
 # Documentation Notes
 
-- This entire presentation is a single **Markdown** file
-- Can be converted to PDF, PPTX, HTML using **Marp CLI**
-- Ideal for maintainability in version control
-- Custom styling applied via theme
+- Single markdown file  
+- Can convert to PDF/PPT/HTML with Marp CLI  
+- Uses custom theme + styling  
 
 ---
-
-<!-- Theme must be in the same markdown file or separate; we’ll include it inline -->
 
 <style>
 section.intro h1 {
@@ -78,20 +70,11 @@ section.bg-demo h1 {
   color: white;
   text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
 }
-
-:root {
-  --my-accent: #2a6fff;
-}
 </style>
 
-<!-- Custom Theme -->
 <style>
 @theme my-theme {
   backgroundColor: #fff;
   color: #111;
-  header: {
-    font-size: 1.8em;
-    color: var(--my-accent);
-  }
 }
 </style>
