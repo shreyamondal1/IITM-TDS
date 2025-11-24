@@ -3,7 +3,7 @@ marp: true
 theme: my-theme
 paginate: true
 paginate-style: "font-size: 0.7em; color: #666; position: absolute; bottom: 10px; right: 20px;"
-math: katex
+math: latex
 ---
 
 <!-- _class: intro -->
@@ -21,7 +21,7 @@ This presentation uses:
 
 - A custom theme (`my-theme`)
 - Page numbers
-- KaTeX math
+- LaTeX math
 - Custom CSS
 - Marp directives
 
@@ -37,9 +37,11 @@ This presentation uses:
 
 # Algorithmic Complexity Example
 
-\[
+Here is a valid LaTeX equation:
+
+$$
 T(n) = n \log n + 3n + O(1)
-\]
+$$
 
 ---
 
